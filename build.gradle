@@ -29,3 +29,14 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task myJar(type: Jar) {
+    // Set the source directory for the Jar task
+    from sourceSets.main.output
+
+    // Set the directory where the Jar file should be created
+    destinationDirectory = file("$rootDir/dist")
+
+    // Set the name of the Jar file
+    archiveName = 'tefas-api.jar'
+}
