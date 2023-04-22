@@ -31,8 +31,11 @@ tasks.named('test') {
 }
 
 task myJar(type: Jar) {
-    // Set the source directory for the Jar task
-    from sourceSets.main.output
+    manifest {
+        attributes(
+                'Main-Class': 'com.ag.tefasapi.TefasApiApplication'
+        )
+    }
 
     // Set the directory where the Jar file should be created
     destinationDirectory = file("$rootDir/dist")
