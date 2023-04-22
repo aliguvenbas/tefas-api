@@ -1,5 +1,6 @@
 package com.ag.tefasapi.controller;
 
+import com.ag.tefasapi.controller.dto.FundDto;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,7 @@ public class Api {
 	public static final String TEFAS_URL_FON_ANALIZ = "https://www.tefas.gov.tr/FonAnaliz.aspx?FonKod=";
 
 	@GetMapping("{fundCode}")
-	public String getFundLatestPrice(@PathVariable String fundCode) throws IOException {
+	public FundDto getFundLatestPrice(@PathVariable String fundCode) throws IOException {
 		var url = new URL(TEFAS_URL_FON_ANALIZ + fundCode);
 		var con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
@@ -41,7 +42,7 @@ public class Api {
 			lastPrice = StringUtils.substringBetween(split[1], "<span>", "</span>");
 			System.out.println(lastPrice);
 		}
-		return lastPrice;
+		return new FundDto(lastPrice);
 	}
 
 	@GetMapping
